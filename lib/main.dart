@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import './quiz.dart';
+import './question.dart';
 
 void main() => runApp(const MyApp());
 
@@ -29,30 +31,50 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  final _questions = [
-    "What's your favorite color?",
-    "What's your favorite animal?"
+  final _questions = const [
+    Question(
+      "What's your favourite color?",
+      [
+        {"text": "Black", "score": 1},
+        {"text": "green", "score": 2},
+        {"text": "blue", "score": 1},
+        {"text": "white", "score": 4},
+      ],
+    ),
+    Question(
+      "What's your favourite animal?",
+      [
+        {"text": "Cat", "score": 4},
+        {"text": "Dog", "score": 5},
+        {"text": "snake", "score": 3},
+        {"text": "salamander", "score": 1},
+        {"text": "your mom", "score": 5},
+      ],
+    ),
+    Question(
+      "What's your favourite programming language?",
+      [
+        {'text': 'Kotlin', 'score': 5},
+        {'text': 'Swift', 'score': 3},
+        {'text': 'C++', 'score': 2},
+        {'text': 'Dart', 'score': 4},
+      ],
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    const appBarTitle = "My First App";
+    const String appBarTitle = "My First App";
 
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: const Text(appBarTitle),
         ),
-        body: Column(
-          children: [
-            Text(_questions[_questionIndex]),
-            ...[1, 2, 3].map(
-              (number) => ElevatedButton(
-                onPressed: _answerQuestion,
-                child: Text("Answer $number"),
-              ),
-            ),
-          ],
+        body: Quiz(
+          answerQuestion: _answerQuestion,
+          questionIndex: _questionIndex,
+          questions: _questions,
         ),
       ),
     );
