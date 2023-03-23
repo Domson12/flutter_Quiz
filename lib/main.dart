@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_first/result.dart';
 import './quiz.dart';
 import './question.dart';
 
@@ -14,19 +14,15 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
+  var _totalScore = 0;
 
-  void _answerQuestion() {
+  void _answerQuestion(int score) {
+    _totalScore += score;
     setState(() {
       if (_questionIndex < _questions.length - 1) {
         _questionIndex++;
       } else {
-        Fluttertoast.showToast(
-            msg: "Run out of questions",
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            backgroundColor: Colors.blueGrey,
-            textColor: Colors.white,
-            fontSize: 20.0);
+       Result;
       }
     });
   }
