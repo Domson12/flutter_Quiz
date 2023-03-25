@@ -2,13 +2,8 @@ import 'package:flutter/material.dart';
 
 class Question extends StatelessWidget {
   final String questionText;
-  final List<Map<String, Object>> answers;
 
-  const Question(
-      this.questionText,
-      this.answers, {
-        Key? key,
-      }) : super(key: key);
+  const Question(this.questionText, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

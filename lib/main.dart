@@ -1,76 +1,94 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_first/result.dart';
 import './quiz.dart';
-import './question.dart';
+import './result.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  final List<Map<String, Object>> _questions = const [
+    {
+      'questionText': 'What\'s your favorite color?',
+      'answers': [
+        {'text': 'Black', 'score': 10},
+        {'text': 'Red', 'score': 5},
+        {'text': 'Green', 'score': 3},
+        {'text': 'White', 'score': 1},
+      ],
+    },
+    {
+      'questionText': 'What\'s your favorite animal?',
+      'answers': [
+        {'text': 'Rabbit', 'score': 3},
+        {'text': 'Snake', 'score': 11},
+        {'text': 'Elephant', 'score': 5},
+        {'text': 'Lion', 'score': 9},
+      ],
+    },
+    {
+      'questionText': 'Who\'s your favorite instructor?',
+      'answers': [
+        {'text': 'Max', 'score': 1},
+        {'text': 'John', 'score': 1},
+        {'text': 'Jane', 'score': 1},
+        {'text': 'Bob', 'score': 1},
+      ],
+    },
+  ];
+
   var _questionIndex = 0;
   var _totalScore = 0;
 
-  void _answerQuestion(int score) {
-    _totalScore += score;
+  void _resetQuiz() {
     setState(() {
-      if (_questionIndex < _questions.length - 1) {
-        _questionIndex++;
-      } else {
-       Result;
-      }
+      _questionIndex = 0;
+      _totalScore = 0;
     });
   }
 
-  final _questions = const [
-    Question(
-      "What's your favourite color?",
-      [
-        {"text": "Black", "score": 1},
-        {"text": "green", "score": 2},
-        {"text": "blue", "score": 1},
-        {"text": "white", "score": 4},
-      ],
-    ),
-    Question(
-      "What's your favourite animal?",
-      [
-        {"text": "Cat", "score": 4},
-        {"text": "Dog", "score": 5},
-        {"text": "snake", "score": 3},
-        {"text": "salamander", "score": 1},
-        {"text": "your mom", "score": 5},
-      ],
-    ),
-    Question(
-      "What's your favourite programming language?",
-      [
-        {'text': 'Kotlin', 'score': 5},
-        {'text': 'Swift', 'score': 3},
-        {'text': 'C++', 'score': 2},
-        {'text': 'Dart', 'score': 4},
-      ],
-    ),
-  ];
+  void _answerQuestion(int score) {
+    _totalScore += score;
+
+    setState(() {
+      _questionIndex++;
+    });
+
+    if (_questionIndex < _questions.length) {
+      if (kDebugMode) {
+        print('We have more questions!');
+      }
+    } else {
+      if (kDebugMode) {
+        print('No more questions!');
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    const String appBarTitle = "My First App";
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text(appBarTitle),
+          title: const Text('My First App'),
         ),
-        body: Quiz(
+        body: _questionIndex < _questions.length
+            ? Quiz(
           answerQuestion: _answerQuestion,
           questionIndex: _questionIndex,
           questions: _questions,
+        )
+            : Result(
+          resultScore: _totalScore,
+          resetQuiz: _resetQuiz,
         ),
       ),
     );
