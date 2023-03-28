@@ -82,14 +82,14 @@ class _MyAppState extends State<MyApp> {
         ),
         body: _questionIndex < _questions.length
             ? Quiz(
-          answerQuestion: _answerQuestion,
-          questionIndex: _questionIndex,
-          questions: _questions,
-        )
+                answerQuestion: _answerQuestion,
+                questionIndex: _questionIndex,
+                questions: _questions,
+              )
             : Result(
-          resultScore: _totalScore,
-          resetQuiz: _resetQuiz,
-        ),
+                resultScore: _totalScore,
+                resetQuiz: _resetQuiz,
+              ),
       ),
     );
   }

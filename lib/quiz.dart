@@ -7,7 +7,8 @@ class Quiz extends StatelessWidget {
   final int questionIndex;
   final Function answerQuestion;
 
-  const Quiz({super.key,
+  const Quiz({
+    super.key,
     required this.questions,
     required this.answerQuestion,
     required this.questionIndex,
@@ -24,7 +25,7 @@ class Quiz extends StatelessWidget {
         ...(questions[questionIndex]['answers'] as List<Map<String, Object>>)
             .map((answer) {
           return Answer(
-                () => answerQuestion(answer['score'] as int),
+            () => answerQuestion(answer['score'] as int),
             answer['text'].toString(),
             key: Key(answer['text'].toString()),
           );
